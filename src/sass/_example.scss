@@ -1,0 +1,50 @@
+
+.section {
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(0deg, #010203 0%, rgba(2, 2, 2, 0) 90%), url(../images/map.jpg);
+  min-height: 100vh;
+}
+.input__box {
+  margin: 30px auto;
+  height: 300px;
+  width: 600px;
+  border-radius: 40px;
+  background-image: linear-gradient(to left top, rgb(255, 255, 255), rgb(119, 119, 119));
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.input__title {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+}
+.input__text {
+  border: none;
+  border-radius: 10px;
+  height: 60px;
+  font-size: 35px;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 15px;
+}
+.input__text:focus{
+  padding-left: 13px;
+  border-radius: 0px;
+  border: 2px solid rgb(0, 0, 0, 0.5);
+}
+
+.country_item {
+  font-size: 20px;
+  color: rgb(248, 150, 85);
+}
+.render_box {
+  color:rgb(255, 254, 254);
+  // margin: 0 auto;
+  margin-left: auto;
+  margin-right: 70px;
+}
+    
