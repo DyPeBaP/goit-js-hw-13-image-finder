@@ -1,78 +1,111 @@
 import './sass/main.scss';
+import NewService from './apiService.js';
+import createImagesMarkup from '../src/templates/example.hbs';
+import { alert } from '../node_modules/@pnotify/core/dist/PNotify.js';
+
 import '@pnotify/core/dist/BrightTheme.css';
-import { notice, error, Stack } from '@pnotify/core';
 
-import fetchCountries from './fetchCountries';
-import countryListMarkup from './templates/countriesList.hbs';
-import countryCardMarkup from './templates/countryCard.hbs';
-
-const debounce = require('lodash.debounce');
 const refs = {
-  input: document.querySelector('.input__text'),
-  renderBox: document.querySelector('.render_box'),
-  debouncedOnInput: debounce(onInput, 1000),
+  body: document.body,
+  input: document.querySelector('.input'),
+  listImages: document.querySelector('.gallery'),
+  overlay: document.querySelector('.lightbox'),
+  imgOriginal: document.querySelector('.lightbox__image'),
+  buttonClose: document.querySelector('button[data-action="close-lightbox"]'),
+  sentinel: document.querySelector('.sentinel'),
+  searchForm: document.querySelector('.search-form'),
 };
 
-refs.input.addEventListener('input', refs.debouncedOnInput);
+const newService = new NewService();
+refs.listImages.addEventListener('click', onImageClick);
+refs.overlay.addEventListener('click', onCloseOverly);
+refs.buttonClose.addEventListener('click', onBtnCloseModal);
+refs.searchForm.addEventListener('submit', onSearch);
+window.addEventListener('keydown', onkeydown);
 
-function onInput(e) {
-  const country = e.target.value;
-  fetchCountries(country).then(r => console.log(r));
-  fetchCountries(country)
-    .then(r => renderResult(r))
-    .catch(() => errorServerMessage());
+function onBtnCloseModal() {
+  refs.overlay.classList.remove('is-open');
+  refs.imgOriginal.src = '';
 }
 
-function renderResult(arr) {
-  if (arr.length === 1) {
-    createCountryCardMarkup(arr);
+function onCloseOverly(event) {
+  if (!event.target.classList.contains('lightbox__overlay')) {
+    return;
   }
-  if (arr.length >= 2 && arr.length < 10) {
-    createCountryListMarkup(arr);
-  }
-  if (arr.length > 10) {
-    noticeMessage();
-  }
-  if (arr.status === 404) {
-    errorMessage();
-  }
+  refs.overlay.classList.remove('is-open');
 }
 
-function createCountryListMarkup(arr) {
-  refs.renderBox.innerHTML = countryListMarkup(arr);
+function createImages(searchRequest) {
+  clearContainer();
+  newService.resetPage();
+  newService
+    .fetchImages(searchRequest)
+    .then(data => {
+      if (data.hits.length !== 0) renderMarkup(data);
+      else onError();
+    })
+    .catch(onError);
 }
 
-function createCountryCardMarkup(arr) {
-  refs.renderBox.innerHTML = countryCardMarkup(arr);
+function onSearch(event) {
+  event.preventDefault();
+  const searchRequest = refs.input.value.trim();
+  if (searchRequest !== '') createImages(searchRequest);
 }
 
-function noticeMessage() {
-  refs.renderBox.innerHTML = '';
-  notice({
-    title: 'Attention',
-    text: 'To many results, try to specify your search.',
-    width: '300px',
-    minHeight: '15px',
-    delay: 2000,
+function onError(error) {
+  alert({
+    text: 'Пожалуйста, уточните критерии поиска',
+    type: 'error',
+    hide: true,
+    delay: 3000,
   });
+
+  console.log(error);
 }
-function errorMessage() {
-  refs.renderBox.innerHTML = '';
-  error({
-    title: 'Error',
-    text: 'No matchs found!',
-    width: '300px',
-    minHeight: '15px',
-    delay: 2000,
-  });
+
+function renderMarkup(data) {
+  let imagesHTML = '';
+  imagesHTML = data.hits.map(cart => createImagesMarkup(cart)).join('');
+  refs.listImages.insertAdjacentHTML('beforeend', imagesHTML);
 }
-function errorServerMessage() {
-  refs.renderBox.innerHTML = '';
-  error({
-    title: 'Error',
-    text: 'Some things goes wrong, try again later',
-    width: '300px',
-    minHeight: '15px',
-    delay: 2000,
+
+const onEntry = entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && newService.page > 1) {
+      newService.fetchImages().then(renderMarkup).catch(onError);
+    }
   });
+};
+
+const option = {
+  rootMargin: '150px',
+};
+
+const observer = new IntersectionObserver(onEntry, option);
+observer.observe(refs.sentinel);
+
+function clearContainer() {
+  refs.listImages.innerHTML = '';
+}
+
+function onImageClick(evt) {
+  evt.preventDefault();
+  const isGalleryImagesEl = evt.target.classList.contains('gallery__image');
+
+  if (!isGalleryImagesEl) {
+    return;
+  } else {
+    refs.overlay.classList.add('is-open');
+
+    refs.imgOriginal.src = evt.target.dataset.source;
+  }
+}
+
+function onkeydown(event) {
+  if (!refs.overlay.classList.contains('is-open')) return;
+
+  if (event.code === 'Escape') {
+    refs.overlay.classList.remove('is-open');
+  }
 }

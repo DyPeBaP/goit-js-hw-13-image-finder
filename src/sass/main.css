@@ -1,70 +1,159 @@
-@charset "UTF-8";
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
-.section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+.pnotify-text.brighttheme-text.pnotify-text-with-max-height {
+  height: 39px;
 }
 
-.input__box {
-  margin: 30px auto;
-  height: 300px;
-  width: 600px;
-  border-radius: 40px;
-  background-image: -webkit-gradient(linear, right bottom, left top, from(white), to(#ff7606));
-  background-image: linear-gradient(to left top, white, #ff7606);
-  background-size: contain;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+body {
+  background-image: url("../images/background-image.jpg");
 }
 
-.input__title {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-size: 50px;
+.search-form {
+  text-align: center;
 }
 
-.input__text {
-  border: none;
-  border-radius: 10px;
-  height: 60px;
+.input {
+  margin-top: 50px;
   font-size: 35px;
-  color: rgba(0, 0, 0, 0.5);
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-left: 15px;
+  margin-bottom: 50px;
+  min-width: 400px;
+  border-radius: 50px;
+  border: transparent;
+  padding: 20px 20px 20px;
+  background-color: rgba(255, 255, 255, 0.849);
+  color: rgba(0, 0, 0, 0.705);
 }
 
-.input__text:focus {
-  padding-left: 14px;
-  border: 1px solid black;
+.gallery {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  margin-left: -30px;
+  margin-top: -30px;
 }
 
-.country_item {
-  font-size: 20px;
-  color: #e48d54;
+.container {
+  max-width: 1800px;
 }
 
-.render_box {
-  margin: 0 auto;
+.item {
+  -ms-flex-preferred-size: calc(100% / 3 - 30px);
+      flex-basis: calc(100% / 3 - 30px);
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.gallery__image {
+  min-height: 500px;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-transition: -webkit-transform var(--animation-duration) var(--timing-function);
+  transition: -webkit-transform var(--animation-duration) var(--timing-function);
+  transition: transform var(--animation-duration) var(--timing-function);
+  transition: transform var(--animation-duration) var(--timing-function), -webkit-transform var(--animation-duration) var(--timing-function);
+}
+
+.stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.stats-item {
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+.lightbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: opacity var(--animation-duration) var(--timing-function);
+  transition: opacity var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.589);
+}
+
+.lightbox__content {
+  -webkit-transform: scale(0.95);
+          transform: scale(0.95);
+  -webkit-transition: -webkit-transform var(--animation-duration) var(--timing-function);
+  transition: -webkit-transform var(--animation-duration) var(--timing-function);
+  transition: transform var(--animation-duration) var(--timing-function);
+  transition: transform var(--animation-duration) var(--timing-function), -webkit-transform var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open .lightbox__content {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.lightbox__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.lightbox__button {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(252, 0, 0, 0.747);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: background-color 500ms var(--animation-duration) var(--timing-function);
+  transition: background-color 500ms var(--animation-duration) var(--timing-function);
+  outline: none;
+  background-image: url("../images/closeButton.svg");
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+
+.lightbox__button:hover,
+.lightbox__button:focus {
+  background-color: rgba(0, 0, 0, 0.637);
 }
 /*# sourceMappingURL=main.css.map */

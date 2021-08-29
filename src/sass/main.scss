@@ -1,7 +1,125 @@
-/*
- * Главный файл стилей.
- * Все паршалы подключаются сюда.
- */
+.pnotify-text.brighttheme-text.pnotify-text-with-max-height {
+  height: 39px;
+}
 
-// Стили для файла с примером HTML-фрагмента
-@import './example';
+body {
+  background-image: url('../images/background-image.jpg');
+}
+
+.search-form {
+  text-align: center;
+}
+.input {
+  margin-top: 50px;
+  font-size: 35px;
+  margin-bottom: 50px;
+  min-width: 400px;
+  border-radius: 50px;
+  border: transparent;
+  padding: 20px 20px 20px;
+  background-color:rgba(255, 255, 255, 0.849);
+  color: rgba(0, 0, 0, 0.705);
+}
+
+.gallery {
+  flex-wrap: wrap;
+  display: flex;
+  list-style: none;
+  margin-left: -30px;
+  margin-top: -30px;
+}
+.container {
+  max-width: 1800px;
+}
+
+.item {
+  flex-basis: calc(100% / 3 - 30px);
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.gallery__image {
+  min-height: 500px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+.stats {
+  display: flex;
+}
+.stats-item {
+  margin-left: 50px;
+  font-size: 30px;
+}
+
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.589);
+}
+
+.lightbox__content {
+  transform: scale(0.95);
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open .lightbox__content {
+  transform: scale(1);
+}
+
+.lightbox__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.lightbox__button {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(252, 0, 0, 0.747);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 500ms var(--animation-duration) var(--timing-function);
+  outline: none;
+  background-image: url('../images/closeButton.svg');
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+
+.lightbox__button:hover,
+.lightbox__button:focus {
+  background-color: rgba(0, 0, 0, 0.637);
+}
