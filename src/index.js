@@ -28,8 +28,8 @@ function onBtnCloseModal() {
   refs.imgOriginal.src = "";
 }
 
-function onCloseOverly(event) {
-  if (!event.target.classList.contains("lightbox__overlay")) {
+function onCloseOverly(e) {
+  if (!e.target.classList.contains("lightbox__overlay")) {
     return;
   }
   refs.overlay.classList.remove("is-open");
@@ -47,8 +47,8 @@ function createImages(searchRequest) {
     .catch(onError);
 }
 
-function onSearch(event) {
-  event.preventDefault();
+function onSearch(e) {
+  e.preventDefault();
   const searchRequest = refs.input.value.trim();
   if (searchRequest !== "") createImages(searchRequest);
 }
@@ -102,10 +102,10 @@ function onImageClick(evt) {
   }
 }
 
-function onkeydown(event) {
+function onkeydown(e) {
   if (!refs.overlay.classList.contains("is-open")) return;
 
-  if (event.code === "Escape") {
+  if (e.code === "Escape") {
     refs.overlay.classList.remove("is-open");
   }
 }
