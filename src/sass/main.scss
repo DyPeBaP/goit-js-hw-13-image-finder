@@ -3,12 +3,13 @@
 }
 
 body {
-  background-image: url('../images/background-image.jpg');
+  background-image: url("../images/background-image.jpg");
 }
 
 .search-form {
   text-align: center;
 }
+
 .input {
   margin-top: 50px;
   font-size: 35px;
@@ -17,7 +18,7 @@ body {
   border-radius: 50px;
   border: transparent;
   padding: 20px 20px 20px;
-  background-color:rgba(255, 255, 255, 0.849);
+  background-color: rgba(255, 255, 255, 0.849);
   color: rgba(0, 0, 0, 0.705);
 }
 
@@ -47,9 +48,10 @@ body {
 }
 .stats {
   display: flex;
+  background-color: rgba(255, 255, 255, 0.63);
 }
 .stats-item {
-  margin-left: 50px;
+  margin-left: 30px;
   font-size: 30px;
 }
 
@@ -107,16 +109,11 @@ body {
   justify-content: center;
   width: 60px;
   height: 60px;
-  background-color: rgba(252, 0, 0, 0.747);
+  // background-color: rgba(252, 0, 0, 0.747);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 500ms var(--animation-duration) var(--timing-function);
-  outline: none;
-  background-image: url('../images/closeButton.svg');
-  background-position: center;
-  background-size: 60%;
-  background-repeat: no-repeat;
+  background-image: url("../images/closeButton.svg");
 }
 
 .lightbox__button:hover,

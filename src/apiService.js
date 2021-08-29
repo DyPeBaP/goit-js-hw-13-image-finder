@@ -1,7 +1,6 @@
-  
 export default class NewService {
   constructor() {
-    this.searchQuery = '';
+    this.searchQuery = "";
     this.page = 1;
   }
 

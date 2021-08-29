@@ -60,10 +60,11 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-color: rgba(255, 255, 255, 0.63);
 }
 
 .stats-item {
-  margin-left: 50px;
+  margin-left: 30px;
   font-size: 30px;
 }
 
@@ -139,17 +140,10 @@ body {
           justify-content: center;
   width: 60px;
   height: 60px;
-  background-color: rgba(252, 0, 0, 0.747);
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-transition: background-color 500ms var(--animation-duration) var(--timing-function);
-  transition: background-color 500ms var(--animation-duration) var(--timing-function);
-  outline: none;
   background-image: url("../images/closeButton.svg");
-  background-position: center;
-  background-size: 60%;
-  background-repeat: no-repeat;
 }
 
 .lightbox__button:hover,
